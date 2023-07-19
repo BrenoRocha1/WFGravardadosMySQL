@@ -26,11 +26,21 @@ namespace WFGravarDadosMySQL
                 string data_source = "datasource=localhost;username=root;password=;database=db_agenda";
                 Conexao = new MySqlConnection(data_source);
 
-                string sql = "INSERT INTO contato (nome, email, telefone)"+
+                string sql = "INSERT INTO contato (nome, telefone, email)"+
                     "VALUES " +
-                    "('" +txtNome.Text+"','" +txtEmail+"','" + txtTelefone+"')";
+                    "('" +txtNome.Text+ "','" + txtTelefone + "','" + txtEmail + "')";
 
                 MySqlCommand comando = new MySqlCommand(sql, Conexao);
+                Conexao.Open();
+                comando.ExecuteReader();
+                MessageBox.Show("Cadastro inserido com sucesso");
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                Conexao.Close();
             }
         }
     }
